@@ -48,14 +48,14 @@ logging.basicConfig(level=logging.INFO)
 
 print("Starting.....")
 
-Riz = TelegramClient('Riz', Var.API_ID, Var.API_HASH).start(bot_token=Var.BOT_TOKEN)
+Dam = TelegramClient('Dam', Var.API_ID, Var.API_HASH).start(bot_token=Var.BOT_TOKEN)
 
 
 SUDO_USERS = []
 for x in Var.SUDO: 
     SUDO_USERS.append(x)
 
-@Riz.on(events.NewMessage(pattern="^/ping"))  
+@Dam.on(events.NewMessage(pattern="^/ping"))  
 async def ping(e):
     if e.sender_id in SUDO_USERS:
         start = datetime.now()
@@ -66,7 +66,7 @@ async def ping(e):
         await event.edit(f"**I'm On** \n\n __Pong__ !! `{ms}` ms")
 
 
-@Riz.on(events.NewMessage(pattern="^/kickall"))
+@Dam.on(events.NewMessage(pattern="^/kickall"))
 async def kickall(event):
    if event.sender_id in SUDO_USERS:
      if not event.is_group:
@@ -74,13 +74,13 @@ async def kickall(event):
          await event.reply(Reply)
      else:
          await event.delete()
-         RiZ = await event.get_chat()
-         RiZoeLop = await event.client.get_me()
-         admin = RiZ.admin_rights
-         creator = RiZ.creator
+         Dam = await event.get_chat()
+         Damsy = await event.client.get_me()
+         admin = Dam.admin_rights
+         creator = Dam.creator
          if not admin and not creator:
               return await event.reply("I Don't have sufficient Rights !!")
-         RiZoeL = await Riz.send_message(event.chat_id, "**Hello !! I'm Alive**")
+         Damsy = await Dam.send_message(event.chat_id, "**Hello !! I'm Alive**")
          admins = await event.client.get_participants(event.chat_id, filter=ChannelParticipantsAdmins)
          admins_id = [i.id for i in admins]
          all = 0
@@ -95,10 +95,10 @@ async def kickall(event):
              except Exception as e:
                     print(str(e))
                     await asyncio.sleep(0.1)
-         await RiZoeL.edit(f"**Users Kicked Successfully ! \n\n Kicked:** `{kimk}` \n **Total:** `{all}`")
+         await Damsy.edit(f"**Users Kicked Successfully ! \n\n Kicked:** `{kimk}` \n **Total:** `{all}`")
     
 
-@Riz.on(events.NewMessage(pattern="^/banall"))
+@Dam.on(events.NewMessage(pattern="^/banall"))
 async def banall(event):
    if event.sender_id in SUDO_USERS:
      if not event.is_group:
@@ -106,13 +106,13 @@ async def banall(event):
          await event.reply(Reply)
      else:
          await event.delete()
-         RiZ = await event.get_chat()
-         RiZoeLop = await event.client.get_me()
-         admin = RiZ.admin_rights
-         creator = RiZ.creator
+         Dam = await event.get_chat()
+         Damsy = await event.client.get_me()
+         admin = Dam.admin_rights
+         creator = Dam.creator
          if not admin and not creator:
               return await event.reply("I Don't have sufficient Rights !!")
-         RiZoeL = await Riz.send_message(event.chat_id, "**Hello !! I'm Alive**")
+         Damsy = await Dam.send_message(event.chat_id, "**Hello !! I'm Alive**")
          admins = await event.client.get_participants(event.chat_id, filter=ChannelParticipantsAdmins)
          admins_id = [i.id for i in admins]
          all = 0
@@ -127,10 +127,10 @@ async def banall(event):
              except Exception as e:
                    print(str(e))
                    await asyncio.sleep(0.1)
-         await RiZoeL.edit(f"**Users Banned Successfully ! \n\n Banned Users:** `{bann}` \n **Total Users:** `{all}`")
+         await Damsy.edit(f"**Users Banned Successfully ! \n\n Banned Users:** `{bann}` \n **Total Users:** `{all}`")
 
     
-@Riz.on(events.NewMessage(pattern="^/unbanall"))
+@Dam.on(events.NewMessage(pattern="^/unbanall"))
 async def unban(event):
    if event.sender_id in SUDO_USERS:
      if not event.is_group:
@@ -153,12 +153,12 @@ async def unban(event):
          await msg.edit("{}: {} unbanned".format(event.chat_id, p))
 
 
-@Riz.on(events.NewMessage(pattern="^/leave"))
+@Dam.on(events.NewMessage(pattern="^/leave"))
 async def _(e):
     if e.sender_id in SUDO_USERS:
-        rizoel = ("".join(e.text.split(maxsplit=1)[1:])).split(" ", 1)
+        damsy = ("".join(e.text.split(maxsplit=1)[1:])).split(" ", 1)
         if len(e.text) > 7:
-            bc = rizoel[0]
+            bc = damsy[0]
             bc = int(bc)
             text = "Leaving....."
             event = await e.reply(text, parse_mode=None, link_preview=None )
@@ -178,13 +178,13 @@ async def _(e):
                 await event.edit(str(e))   
           
 
-@Riz.on(events.NewMessage(pattern="^/restart"))
+@Dam.on(events.NewMessage(pattern="^/restart"))
 async def restart(e):
     if e.sender_id in SUDO_USERS:
         text = "__Restarting__ !!!"
         await e.reply(text, parse_mode=None, link_preview=None )
         try:
-            await Riz.disconnect()
+            await Dam.disconnect()
         except Exception:
             pass
         os.execl(sys.executable, sys.executable, *sys.argv)
@@ -194,4 +194,4 @@ async def restart(e):
 print("\n\n")
 print("Your Ban All Bot Deployed Successfully ✅")
 
-Riz.run_until_disconnected()
+Dam.run_until_disconnected()
